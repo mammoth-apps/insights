@@ -4,7 +4,7 @@ import './App.css';
 
 interface AppProps {}
 
-function App({}: AppProps) {
+const App = ({}: AppProps) => {
   const [count, setCount] = useState(0);
   setTimeout(() => setCount(count + 1), 1000);
   return (
@@ -30,6 +30,6 @@ function App({}: AppProps) {
       </header>
     </div>
   );
-}
+};
 
 export default App;
