@@ -1,5 +1,5 @@
 import { combineReducers } from '@reduxjs/toolkit';
-import { budgetReducer } from 'src/features';
+import { budgetReducer } from '../features';
 
 const rootReducer = combineReducers({
   budgets: budgetReducer,
