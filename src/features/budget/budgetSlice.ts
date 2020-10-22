@@ -34,8 +34,4 @@ const budgetSlice = createSlice({
 
 export const { setLoading, setBudget, setBudgetList } = budgetSlice.actions;
 
-export const budgetStore = budgetSlice.reducer;
-
-export const budgetStoreSelector = (state: {
-  budgetStore: IBudgetSliceState;
-}) => state.budgetStore;
+export default budgetSlice.reducer;

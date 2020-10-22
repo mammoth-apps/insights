@@ -1,1 +1,1 @@
-export * from './budgetSlice';
+export { default as budgetReducer } from './budgetSlice';
