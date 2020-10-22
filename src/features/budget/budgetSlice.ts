@@ -2,14 +2,14 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import axios from 'axios';
 import type { IBudget } from '@mammoth-apps/api-interfaces';
 
-export interface IBudgetSliceState {
+export interface IBudgetsState {
   budgets: IBudget[];
   selectedBudget: IBudget | null;
   loading: boolean;
   errors: string;
 }
 
-const initialState: IBudgetSliceState = {
+const initialState: IBudgetsState = {
   budgets: [],
   selectedBudget: null,
   loading: false,
