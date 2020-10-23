@@ -1,11 +1,11 @@
-import type { IAccount } from '@mammoth-apps/api-interfaces';
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import type { IAccount } from '@mammoth-apps/api-interfaces'
+import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
-export interface IAccountsState {
-  accounts: IAccount[];
-  selectedAccount: IAccount | null;
-  loading: boolean;
-  errors: string[];
+interface IAccountsState {
+  accounts: IAccount[]
+  selectedAccount: IAccount | null
+  loading: boolean
+  errors: string[]
 }
 
 const initialState: IAccountsState = {
@@ -13,7 +13,7 @@ const initialState: IAccountsState = {
   selectedAccount: null,
   loading: false,
   errors: [],
-};
+}
 
 const accountSlice = createSlice({
   name: 'accounts',
@@ -32,8 +32,8 @@ const accountSlice = createSlice({
     editAccountSuccess: (state, action: PayloadAction<IAccount>) => {},
     editAccountFailure: (state, action: PayloadAction<string>) => {},
   },
-});
+})
 
-export const {} = accountSlice.actions;
+export const {} = accountSlice.actions
 
-export default accountSlice.reducer;
+export default accountSlice.reducer

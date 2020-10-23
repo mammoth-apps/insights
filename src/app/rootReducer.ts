@@ -1,9 +1,15 @@
 import { combineReducers } from '@reduxjs/toolkit'
-import { accountReducer, budgetReducer, transactionReducer } from '../features'
+import {
+  accountReducer,
+  budgetReducer,
+  categoryReducer,
+  transactionReducer,
+} from '../features'
 
 const rootReducer = combineReducers({
-  budgets: budgetReducer,
   accounts: accountReducer,
+  budgets: budgetReducer,
+  categories: categoryReducer,
   transactions: transactionReducer,
 })
 
