@@ -1,11 +1,12 @@
-import { combineReducers } from '@reduxjs/toolkit';
-import { accountReducer, budgetReducer } from '../features';
+import { combineReducers } from '@reduxjs/toolkit'
+import { accountReducer, budgetReducer, transactionReducer } from '../features'
 
 const rootReducer = combineReducers({
   budgets: budgetReducer,
   accounts: accountReducer,
-});
+  transactions: transactionReducer,
+})
 
-export type RootState = ReturnType<typeof rootReducer>;
+export type RootState = ReturnType<typeof rootReducer>
 
-export default rootReducer;
+export default rootReducer
