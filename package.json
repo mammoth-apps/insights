@@ -1,4 +1,11 @@
 {
+  "name": "@mammoth-apps/insights",
+  "version": "0.0.1",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mammoth-apps/insights"
+  },
+  "license": "MIT",
   "scripts": {
     "start": "snowpack dev",
     "build": "snowpack build",
@@ -7,11 +14,15 @@
     "lint": "prettier --check \"src/**/*.{js,jsx,ts,tsx}\""
   },
   "dependencies": {
+    "@auth0/auth0-react": "^1.1.0",
     "@reduxjs/toolkit": "^1.4.0",
+    "@tailwindcss/ui": "^0.6.2",
     "axios": "^0.20.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
-    "react-redux": "^7.2.1"
+    "react-redux": "^7.2.1",
+    "react-router-dom": "^5.2.0",
+    "tailwindcss": "^1.8.10"
   },
   "devDependencies": {
     "@babel/preset-react": "^7.10.4",
@@ -25,15 +36,19 @@
     "@testing-library/jest-dom": "^5.5.0",
     "@testing-library/react": "^11.0.0",
     "@types/chai": "^4.2.13",
+    "@types/react": "^16.9.53",
     "@types/react-dom": "^16.9.8",
     "@types/react-redux": "^7.1.9",
-    "@types/react": "^16.9.53",
+    "@types/react-router-dom": "^5.1.6",
     "@types/snowpack-env": "^2.3.0",
     "@web/test-runner": "^0.9.0",
     "chai": "^4.2.0",
     "jest": "^26.2.2",
+    "postcss": "^8.1.0",
+    "postcss-cli": "^8.0.0",
     "prettier": "^2.0.5",
     "snowpack": "^2.15.0",
+    "snowpack-plugin-svgr": "^0.1.2",
     "typescript": "^4.0.0"
   }
 }
