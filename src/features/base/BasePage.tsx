@@ -1,10 +1,11 @@
-import React from 'react'
-import { Header } from '../../components/Header'
+import React, { useState } from 'react'
+import { Header, HeaderLinks } from '../../components/Header'
 
 import DataTrends from '../../../public/assets/undraw_data_trends_b0wg.svg'
 
 interface BasePageProps {}
 export const BasePage: React.FC<BasePageProps> = ({}): JSX.Element => {
+  const [isHeaderOpen, setIsHeaderOpen] = useState(false)
   return (
     <section className="relative bg-white overflow-hidden  h-screen">
       <div className="max-w-screen-xl mx-auto">
@@ -36,6 +37,9 @@ export const BasePage: React.FC<BasePageProps> = ({}): JSX.Element => {
                       id="main-menu"
                       aria-label="Main menu"
                       aria-haspopup="true"
+                      onClick={() => {
+                        setIsHeaderOpen(!isHeaderOpen)
+                      }}
                     >
                       <svg
                         className="h-6 w-6"
@@ -54,41 +58,10 @@ export const BasePage: React.FC<BasePageProps> = ({}): JSX.Element => {
                   </div>
                 </div>
               </div>
-              <div className="hidden md:block md:ml-10 md:pr-4">
-                <a
-                  href="#"
-                  className="font-medium text-gray-500 hover:text-gray-900 transition duration-150 ease-in-out"
-                >
-                  Product
-                </a>
-                <a
-                  href="#"
-                  className="ml-8 font-medium text-gray-500 hover:text-gray-900 transition duration-150 ease-in-out"
-                >
-                  Features
-                </a>
-                <a
-                  href="#"
-                  className="ml-8 font-medium text-gray-500 hover:text-gray-900 transition duration-150 ease-in-out"
-                >
-                  Marketplace
-                </a>
-                <a
-                  href="#"
-                  className="ml-8 font-medium text-gray-500 hover:text-gray-900 transition duration-150 ease-in-out"
-                >
-                  Company
-                </a>
-                <a
-                  href="#"
-                  className="ml-8 font-medium text-indigo-600 hover:text-indigo-900 transition duration-150 ease-in-out"
-                >
-                  Log in
-                </a>
-              </div>
+              <HeaderLinks />
             </nav>
           </div>
-          <Header />
+          <Header isOpen={isHeaderOpen} />
           <article className="mt-10 mx-auto max-w-screen-xl px-4 sm:mt-12 sm:px-6 md:mt-16 lg:mt-20 lg:px-8 xl:mt-28">
             <div className="sm:text-center lg:text-left">
               <h2 className="text-4xl tracking-tight leading-10 font-extrabold text-gray-900 sm:text-5xl sm:leading-none md:text-6xl">
@@ -124,7 +97,7 @@ export const BasePage: React.FC<BasePageProps> = ({}): JSX.Element => {
         </div>
       </div>
       <div className="lg:absolute lg:inset-y-0 lg:right-0 lg:w-1/2">
-        <DataTrends className="h-56 w-full object-cover sm:h-72 md:h-96 lg:w-full lg:h-full" />
+        <DataTrends className="h-full w-full object-cover" />
       </div>
     </section>
   )
