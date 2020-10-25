@@ -1,6 +1,5 @@
 import type { ICategory } from '@mammoth-apps/api-interfaces'
 import { createSlice } from '@reduxjs/toolkit'
-import type accountSlice from '../accounts/accountSlice'
 
 interface ICategoryState {
   categories: ICategory[]

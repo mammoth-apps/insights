@@ -1,11 +1,14 @@
-import React, { useState } from 'react'
-import { Header, HeaderLinks } from '../../components/Header'
+import React from 'react'
+import {
+  Header,
+  HeaderLinks,
+  HeaderDropdownToggle,
+} from '../../components/header'
 
 import DataTrends from '../../../public/assets/undraw_data_trends_b0wg.svg'
 
 interface BasePageProps {}
 export const BasePage: React.FC<BasePageProps> = ({}): JSX.Element => {
-  const [isHeaderOpen, setIsHeaderOpen] = useState(false)
   return (
     <section className="relative bg-white overflow-hidden  h-screen">
       <div className="max-w-screen-xl mx-auto">
@@ -31,37 +34,14 @@ export const BasePage: React.FC<BasePageProps> = ({}): JSX.Element => {
                     />
                   </a>
                   <div className="-mr-2 flex items-center md:hidden">
-                    <button
-                      type="button"
-                      className="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 focus:text-gray-500 transition duration-150 ease-in-out"
-                      id="main-menu"
-                      aria-label="Main menu"
-                      aria-haspopup="true"
-                      onClick={() => {
-                        setIsHeaderOpen(!isHeaderOpen)
-                      }}
-                    >
-                      <svg
-                        className="h-6 w-6"
-                        stroke="currentColor"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth="2"
-                          d="M4 6h16M4 12h16M4 18h16"
-                        />
-                      </svg>
-                    </button>
+                    <HeaderDropdownToggle />
                   </div>
                 </div>
               </div>
               <HeaderLinks />
             </nav>
           </div>
-          <Header isOpen={isHeaderOpen} />
+          <Header />
           <article className="mt-10 mx-auto max-w-screen-xl px-4 sm:mt-12 sm:px-6 md:mt-16 lg:mt-20 lg:px-8 xl:mt-28">
             <div className="sm:text-center lg:text-left">
               <h2 className="text-4xl tracking-tight leading-10 font-extrabold text-gray-900 sm:text-5xl sm:leading-none md:text-6xl">

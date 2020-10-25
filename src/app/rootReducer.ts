@@ -1,4 +1,5 @@
 import { combineReducers } from '@reduxjs/toolkit'
+import { headerReducer } from '../components/header'
 import {
   accountReducer,
   budgetReducer,
@@ -11,6 +12,7 @@ const rootReducer = combineReducers({
   budgets: budgetReducer,
   categories: categoryReducer,
   transactions: transactionReducer,
+  headerUI: headerReducer,
 })
 
 export type RootState = ReturnType<typeof rootReducer>
