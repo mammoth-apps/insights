@@ -1,5 +1,6 @@
 export enum InsightRoute {
   Default = '/',
+  Login = '/login/',
   App = '/app/',
   BudgetHub = '/app/:budgetId',
   CategoryBreakdownPage = '/app/:budgetId/categories',
