@@ -31,7 +31,7 @@ export const BasePage: React.FC<BasePageProps> = ({}): JSX.Element => {
                   <a href="#" aria-label="Home">
                     <img
                       className="h-8 w-auto sm:h-10"
-                      src="https://tailwindui.com/img/logos/workflow-mark-on-white.svg"
+                      src="https://tailwindui.com/img/logos/v1/workflow-mark-on-white.svg"
                       alt="Logo"
                     />
                   </a>
@@ -47,14 +47,15 @@ export const BasePage: React.FC<BasePageProps> = ({}): JSX.Element => {
           <article className="mt-10 mx-auto max-w-screen-xl px-4 sm:mt-12 sm:px-6 md:mt-16 lg:mt-20 lg:px-8 xl:mt-28">
             <div className="sm:text-center lg:text-left">
               <h2 className="text-4xl tracking-tight leading-10 font-extrabold text-gray-900 sm:text-5xl sm:leading-none md:text-6xl">
-                Data to enrich your
+                Analytics to enhance your
                 <br className="xl:hidden" />
-                <span className="text-indigo-600">online business</span>
+                <span className="text-indigo-600"> financial savvy</span>
               </h2>
               <p className="mt-3 text-base text-gray-500 sm:mt-5 sm:text-lg sm:max-w-xl sm:mx-auto md:mt-5 md:text-xl lg:mx-0">
-                Anim aute id magna aliqua ad ad non deserunt sunt. Qui irure qui
-                lorem cupidatat commodo. Elit sunt amet fugiat veniam occaecat
-                fugiat aliqua.
+                When every swipe, tap, and cash payment is tracked, the full
+                picture of your finances comes to life. Stop wondering where it
+                goes and start getting <em>Insights</em> into your financial
+                life.
               </p>
               <div className="mt-5 sm:mt-8 sm:flex sm:justify-center lg:justify-start">
                 <div className="rounded-md shadow">

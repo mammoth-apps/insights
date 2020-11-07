@@ -11,7 +11,7 @@ ReactDOM.render(
     <Auth0Provider
       domain={import.meta.env.SNOWPACK_PUBLIC_AUTH0_DOMAIN as string}
       clientId={import.meta.env.SNOWPACK_PUBLIC_AUTH0_CLIENT_ID as string}
-      redirectUri={window.location.origin}
+      redirectUri={`${window.location.origin}/app`}
       audience="https://mammoth.api.com"
       cacheLocation="localstorage"
     >
