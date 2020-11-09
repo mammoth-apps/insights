@@ -1,37 +1,64 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import axios from 'axios';
-import type { IBudget } from '@mammoth-apps/api-interfaces';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import axios from 'axios'
+import type { IBudget } from '@mammoth-apps/api-interfaces'
+import type { AppThunk } from '../../app'
+import { budgetApi } from 'src/api'
 
 export interface IBudgetsState {
-  budgets: IBudget[];
-  selectedBudget: IBudget | null;
-  loading: boolean;
-  errors: string;
+  budgetList: IBudget[]
+  selectedBudget: IBudget | null
+  loading: boolean
+  error: string
 }
 
 const initialState: IBudgetsState = {
-  budgets: [],
+  budgetList: [],
   selectedBudget: null,
   loading: false,
-  errors: '',
-};
+  error: '',
+}
+
+function startLoading(state: IBudgetsState) {
+  state.loading = true
+}
+
+function loadingFailed(state: IBudgetsState, action: PayloadAction<string>) {
+  state.loading = false
+  state.error = action.payload
+}
 
 const budgetSlice = createSlice({
   name: 'budgets',
   initialState,
   reducers: {
-    setLoading: (state, { payload }: PayloadAction<boolean>) => {
-      state.loading = payload;
-    },
-    setBudgetList: (state, { payload }: PayloadAction<IBudget[]>) => {
-      state.budgets = payload;
+    getBudgetListStart: startLoading,
+    getBudgetFailure: loadingFailed,
+    getBudgetListSuccess: (state, { payload }: PayloadAction<IBudget[]>) => {
+      state.loading = false
+      state.error = ''
+      state.budgetList = payload
     },
     setBudget: (state, { payload }: PayloadAction<IBudget>) => {
-      state.selectedBudget = payload;
+      state.selectedBudget = payload
     },
   },
-});
+})
 
-export const { setLoading, setBudget, setBudgetList } = budgetSlice.actions;
+export const {
+  getBudgetListStart,
+  setBudget,
+  getBudgetListSuccess,
+  getBudgetFailure,
+} = budgetSlice.actions
 
-export default budgetSlice.reducer;
+export const fetchBudgets = (): AppThunk => async (dispatch) => {
+  try {
+    dispatch(getBudgetListStart())
+    const result = await budgetApi.loadBudgets()
+    dispatch(getBudgetListSuccess(result))
+  } catch (err: any) {
+    dispatch(getBudgetFailure(err.toString()))
+  }
+}
+
+export default budgetSlice.reducer
