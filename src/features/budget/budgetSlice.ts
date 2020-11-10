@@ -2,7 +2,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import axios from 'axios'
 import type { IBudget } from '@mammoth-apps/api-interfaces'
 import type { AppThunk } from '../../app'
-import { budgetApi } from 'src/api'
+import { budgetApi } from '../../api'
 
 export interface IBudgetsState {
   budgetList: IBudget[]

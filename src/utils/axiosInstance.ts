@@ -1,18 +1,29 @@
-import { default as Axios } from 'axios'
+import { AxiosInstance, default as Axios } from 'axios'
 
-const axios = Axios.create()
+class BudgetRequestApi {
+  public axios: AxiosInstance
+  private authToken: string | null = null
+  constructor() {
+    this.axios = Axios.create({
+      baseURL: import.meta.env.SNOWPACK_PUBLIC_BUDGET_API,
+    })
+    this.axios.interceptors.request.use((request) => {
+      if (this.authToken) {
+        request.headers['Authorization'] = `Bearer ${this.authToken}`
+      }
+      return request
+    })
+  }
 
-let authorizationToken: string | null = null
-
-export const setAuthorizationToken = (token: string): void => {
-  authorizationToken = token
+  public setAuthToken(token: string): void {
+    this.authToken = token
+  }
 }
 
-axios.interceptors.request.use((request) => {
-  if (authorizationToken) {
-    request.headers['Authorization'] = `Bearer ${authorizationToken}`
-  }
-  return request
-})
+const budgetRequestApi = new BudgetRequestApi()
 
-export const axiosInstance = axios
+export const setAuthToken = (token: string) => {
+  budgetRequestApi.setAuthToken(token)
+}
+
+export const axiosInstance = budgetRequestApi.axios
