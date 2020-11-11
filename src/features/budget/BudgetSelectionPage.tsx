@@ -2,8 +2,8 @@ import React, { useEffect } from 'react'
 import type { IBudget } from '@mammoth-apps/api-interfaces'
 import { useDispatch, useSelector } from 'react-redux'
 import type { RootState } from '../../app'
-import { fetchBudgets } from './budgetSlice'
-import { dateFormatter } from 'src/utils'
+import { fetchBudgets, setBudget } from './budgetSlice'
+import { logger } from '../../utils/logger'
 
 type BudgetCardProps = IBudget & {
   onSelect: (id: string) => void
@@ -45,7 +45,15 @@ export const BudgetSelectionPage: React.FC<BudgetSelectionPageProps> = ({}): JSX
 
   // Hooks End
 
-  const onBudgetSelect = (id: string) => {}
+  const onBudgetSelect = (id: string) => {
+    const selectedBudget = budgetList.find((budget) => budget.id === id)
+    if (selectedBudget) {
+      dispatch(setBudget(selectedBudget))
+      // TODO: Navigate to the app/<budgetId> route.
+    }
+    logger.log('Invalid budget selected')
+  }
+
   const onBudgetDelete = (id: string) => {}
 
   return (
