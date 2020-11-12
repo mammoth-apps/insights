@@ -5,6 +5,8 @@ import {
   useParams,
   useRouteMatch,
 } from 'react-router-dom'
+import { replaceKeyPlaceholders } from '../utils'
+import type { InsightRoute } from './routes'
 
 /**
  * useRouter is a wrapper around methods that are exposed by `react-router-dom` to allow for a one stop shop of data grabbing
@@ -18,6 +20,9 @@ export const useRouter = <TState extends any>() => {
   return useMemo(() => {
     return {
       push: history.push,
+      navigateTo: (url: InsightRoute, keys: Record<string, string>) => {
+        history.push(replaceKeyPlaceholders(url, keys))
+      },
       replace: history.replace,
       pathname: location.pathname,
       params,

@@ -1,5 +1,5 @@
 export const logger = {
-  log(args) {
-    console.log(...args)
+  log(message: string, optionalParams: any[] = []) {
+    console.log(message, ...optionalParams)
   },
 }
