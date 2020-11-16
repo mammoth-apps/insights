@@ -25,5 +25,10 @@ export const AuthenticatedRoute = (props: RouteProps) => {
   if (!isAuthenticated) {
     authCallback()
   }
-  return isLoading ? <div>Loading...</div> : <Route {...props} />
+  // Hold this while it is either loading or the user has not authenticated yet.
+  return isLoading || !isAuthenticated ? (
+    <div>Loading...</div>
+  ) : (
+    <Route {...props} />
+  )
 }

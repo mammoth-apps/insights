@@ -1,14 +1,16 @@
+import { useAuth0 } from '@auth0/auth0-react'
 import { Transition } from '@headlessui/react'
 import React, { useState } from 'react'
 
 export const UserProfile = () => {
+  const { user } = useAuth0()
+  console.log(user)
   const [isDropdownOpen, setIsDropdownOpen] = useState(false)
   const onIconClick = () => {
     setIsDropdownOpen(!isDropdownOpen)
   }
   return (
-    <div>
-      {/* <!-- Profile dropdown --> */}
+    <>
       <div className="ml-3 relative">
         <div>
           <button
@@ -18,23 +20,9 @@ export const UserProfile = () => {
             aria-haspopup="true"
             onClick={onIconClick}
           >
-            <img
-              className="h-8 w-8 rounded-full"
-              src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-              alt=""
-            />
+            <img className="h-8 w-8 rounded-full" src={user?.picture} alt="" />
           </button>
         </div>
-        {/* <!--
-                Profile dropdown panel, show/hide based on dropdown state.
-
-                Entering: "transition ease-out duration-100"
-                  From: "transform opacity-0 scale-95"
-                  To: "transform opacity-100 scale-100"
-                Leaving: "transition ease-in duration-75"
-                  From: "transform opacity-100 scale-100"
-                  To: "transform opacity-0 scale-95"
-              --> */}
         <Transition
           show={isDropdownOpen}
           enter="transition ease-out duration-100"
@@ -78,6 +66,6 @@ export const UserProfile = () => {
           </div>
         </Transition>
       </div>
-    </div>
+    </>
   )
 }
