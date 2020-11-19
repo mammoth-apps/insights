@@ -7,11 +7,9 @@ export /**
  * @param {ComponentType} WrappedComponent
  * @returns
  */
-const withNavigationBar = (WrappedComponent: ComponentType) => {
-  return () => (
-    <>
-      <BaseNavBar />
-      <WrappedComponent />
-    </>
-  )
-}
+const withNavigationBar = (WrappedComponent: ComponentType) => () => (
+  <>
+    <BaseNavBar />
+    <WrappedComponent />
+  </>
+)
