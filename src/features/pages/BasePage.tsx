@@ -8,9 +8,11 @@ import {
 import DataTrends from '../../../public/assets/undraw_data_trends_b0wg.svg'
 import { Link } from 'react-router-dom'
 import { InsightRoute } from '../../router/routes'
+import { BaseNavBar } from '../nav-bar/BaseNavBar'
+import { withNavigationBar } from '../hoc/withNavigationBar'
 
 interface BasePageProps {}
-export const BasePage: React.FC<BasePageProps> = ({}): JSX.Element => {
+const BasePageComponent: React.FC<BasePageProps> = ({}): JSX.Element => {
   return (
     <section className="relative bg-white overflow-hidden  h-screen">
       <div className="max-w-screen-xl mx-auto">
@@ -23,8 +25,9 @@ export const BasePage: React.FC<BasePageProps> = ({}): JSX.Element => {
           >
             <polygon points="50,0 100,0 50,100 0,100" />
           </svg>
+          {/* <BaseNavBar /> */}
 
-          <div className="relative pt-6 px-4 sm:px-6 lg:px-8">
+          {/* <div className="relative pt-6 px-4 sm:px-6 lg:px-8">
             <nav className="relative flex items-center justify-between sm:h-10 lg:justify-start">
               <div className="flex items-center flex-grow flex-shrink-0 lg:flex-grow-0">
                 <div className="flex items-center justify-between w-full md:w-auto">
@@ -42,7 +45,7 @@ export const BasePage: React.FC<BasePageProps> = ({}): JSX.Element => {
               </div>
               <HeaderLinks />
             </nav>
-          </div>
+          </div> */}
           <Header />
           <article className="mt-10 mx-auto max-w-screen-xl px-4 sm:mt-12 sm:px-6 md:mt-16 lg:mt-20 lg:px-8 xl:mt-28">
             <div className="sm:text-center lg:text-left">
@@ -85,3 +88,5 @@ export const BasePage: React.FC<BasePageProps> = ({}): JSX.Element => {
     </section>
   )
 }
+
+export const BasePage = withNavigationBar(BasePageComponent)

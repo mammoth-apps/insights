@@ -120,12 +120,7 @@ export const InsightApp = () => {
             </div>
           </div>
         </div>
-        {/*
-    <!--
-      Mobile menu, toggle className based on menu state.
 
-      Open: "block", closed: "hidden"
-    --> */}
         <MobileMenu isOpen={isMobileMenuOpen} />
       </nav>
 

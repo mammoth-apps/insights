@@ -6,12 +6,6 @@ export const HeaderLinks = () => {
   return (
     <div className="hidden md:block md:ml-10 md:pr-4">
       <Link
-        to="#"
-        className="font-medium text-gray-500 hover:text-gray-900 transition duration-150 ease-in-out"
-      >
-        Product
-      </Link>
-      <Link
         to={InsightRoute.Features}
         className="ml-8 font-medium text-gray-500 hover:text-gray-900 transition duration-150 ease-in-out"
       >
