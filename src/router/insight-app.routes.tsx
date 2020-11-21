@@ -1,19 +1,33 @@
-// export const BudgetRouter = () => {
-//   const budgetStore = useBudgetStore()
-//   return (
-//     <DataProvider selectedBudget={budgetStore.selectedBudget}>
-//       <PageLayout
-//         budgetListConfig={<BudgetMenuOptions />}
-//         accountListConfig={<AccountMenuOptions />}
-//         content={
-//           <Switch>
-//             <Route exact path={RoutePaths.BudgetHub} component={HubPage} />
-//             <Route path={RoutePaths.CategoryBreakdownPage} component={CategoryBreakdownPage} />
-//             <Route path={RoutePaths.AccountPage} component={AccountPage} />
-//             <Route path={RoutePaths.TransactionsPage} component={TransactionsPage} />
-//           </Switch>
-//         }
-//       />
-//     </DataProvider>
-//   )
-// }
+import React from 'react'
+import { useSelector } from 'react-redux'
+import { InsightAppPageLayout } from '../features/app/InsightAppPageLayout'
+import { withBudgetData } from '../features/hoc/withBudgetData'
+import type { RootState } from '../app'
+import { InsightRoute } from './routes'
+import { Switch, Route } from 'react-router-dom'
+
+export const BudgetRouter = () => {
+  const budgetState = useSelector((state: RootState) => state.budgets)
+
+  return <div>In Progress below. </div>
+  // return withBudgetData(
+  //   <InsightAppPageLayout
+  //     budgetListConfig={<BudgetMenuOptions />}
+  //     accountListConfig={<AccountMenuOptions />}
+  //     content={
+  //       <Switch>
+  //         <Route exact path={InsightRoute.BudgetHub} component={HubPage} />
+  //         <Route
+  //           path={InsightRoute.CategoryBreakdownPage}
+  //           component={CategoryBreakdownPage}
+  //         />
+  //         <Route path={InsightRoute.AccountPage} component={AccountPage} />
+  //         <Route
+  //           path={InsightRoute.TransactionsPage}
+  //           component={TransactionsPage}
+  //         />
+  //       </Switch>
+  //     }
+  //   />,
+  // )
+}

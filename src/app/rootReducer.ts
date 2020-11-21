@@ -4,6 +4,7 @@ import {
   accountReducer,
   budgetReducer,
   categoryReducer,
+  payeeReducer,
   transactionReducer,
 } from '../features'
 
@@ -12,6 +13,7 @@ const rootReducer = combineReducers({
   budgets: budgetReducer,
   categories: categoryReducer,
   transactions: transactionReducer,
+  payees: payeeReducer,
   headerUI: headerReducer,
 })
 
