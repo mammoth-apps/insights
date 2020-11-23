@@ -1,18 +1,12 @@
 import React from 'react'
-import {
-  Header,
-  HeaderLinks,
-  HeaderDropdownToggle,
-} from '../../components/header'
-
-import DataTrends from '../../../public/assets/undraw_data_trends_b0wg.svg'
 import { Link } from 'react-router-dom'
+import DataTrends from '../../../public/assets/undraw_data_trends_b0wg.svg'
+import { Header } from '../../components/header'
 import { InsightRoute } from '../../router/routes'
-import { BaseNavBar } from '../nav-bar/BaseNavBar'
 import { withNavigationBar } from '../hoc/withNavigationBar'
 
-interface BasePageProps {}
-const BasePageComponent: React.FC<BasePageProps> = ({}): JSX.Element => {
+interface RootPageProps {}
+const RootPageComponent: React.FC<RootPageProps> = ({}): JSX.Element => {
   return (
     <section className="relative bg-white overflow-hidden  h-screen">
       <div className="max-w-screen-xl mx-auto">
@@ -89,4 +83,4 @@ const BasePageComponent: React.FC<BasePageProps> = ({}): JSX.Element => {
   )
 }
 
-export const BasePage = withNavigationBar(BasePageComponent)
+export const RootPage = withNavigationBar(RootPageComponent)

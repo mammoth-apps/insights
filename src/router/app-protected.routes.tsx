@@ -1,14 +1,18 @@
 import React from 'react'
-import { Switch, Route } from 'react-router-dom'
-import { InsightAppPageLayout } from '../features/app/InsightAppPageLayout'
-import { BudgetSelectionPage } from '../features/budget/BudgetSelectionPage'
+import { Route, Switch } from 'react-router-dom'
+import { withBudgetData } from '../features/hoc/withBudgetData'
+import { BudgetSelectionPage } from '../features/pages/budget-selection-page'
+import { InsightBudgetAppPage } from '../features/pages/insight-budget-app-routing'
 import { InsightRoute } from './routes'
 
 export const ProtectedAppRoutes: React.FC = (): JSX.Element => {
   return (
     <Switch>
       <Route exact path={InsightRoute.App} component={BudgetSelectionPage} />
-      <Route path={InsightRoute.BudgetHub} component={InsightAppPageLayout} />
+      <Route
+        path={InsightRoute.BudgetHub}
+        component={withBudgetData(InsightBudgetAppPage)}
+      />
     </Switch>
   )
 }

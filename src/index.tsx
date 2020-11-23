@@ -1,10 +1,11 @@
+import { Auth0Provider } from '@auth0/auth0-react'
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { Provider } from 'react-redux'
-import { AppRoutes } from './router/app.routes'
 import store from './app/store'
+import { ThemeProvider } from './components/theme/theme-provider'
 import './index.css'
-import { Auth0Provider } from '@auth0/auth0-react'
+import { AppRoutes } from './router/app.routes'
 
 ReactDOM.render(
   <React.StrictMode>
@@ -15,9 +16,11 @@ ReactDOM.render(
       audience="https://mammoth.api.com"
       cacheLocation="localstorage"
     >
-      <Provider store={store}>
-        <AppRoutes />
-      </Provider>
+      <ThemeProvider>
+        <Provider store={store}>
+          <AppRoutes />
+        </Provider>
+      </ThemeProvider>
     </Auth0Provider>
   </React.StrictMode>,
   document.getElementById('root'),

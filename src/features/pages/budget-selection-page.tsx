@@ -1,39 +1,12 @@
 import React, { useEffect } from 'react'
-import type { IBudget } from '@mammoth-apps/api-interfaces'
 import { useDispatch, useSelector } from 'react-redux'
 import type { RootState } from '../../app'
-import { fetchBudgets, setBudget } from './budgetSlice'
-import { logger } from '../../utils/logger'
-import { useRouter } from '../../router/useRouter'
 import { InsightRoute } from '../../router/routes'
-
-type BudgetCardProps = IBudget & {
-  onSelect: (id: string) => void
-  onDelete: (id: string) => void
-}
-
-const BudgetCard = ({
-  id,
-  name,
-  createdDate,
-  onDelete,
-  onSelect,
-}: BudgetCardProps) => {
-  return (
-    <div className="w-1/2 bg-white rounded-lg p-6 border border-gray-300">
-      <div className="text-center">
-        <h2 className="text-lg font-bold">{name}</h2>
-        <div className="text-purple-500">{createdDate}</div>
-        <button className="btn btn-primary m-2" onClick={() => onSelect(id)}>
-          Select
-        </button>
-        <button className="btn btn-delete m-2" onClick={() => onDelete(id)}>
-          Delete
-        </button>
-      </div>
-    </div>
-  )
-}
+import { useRouter } from '../../router/useRouter'
+import { logger } from '../../utils/logger'
+import { BudgetCard } from '../budget/budget-card'
+import { BudgetCreateButton } from '../budget/budget-create-button'
+import { fetchBudgets, setBudget } from '../budget/budget-slice'
 
 interface BudgetSelectionPageProps {}
 export const BudgetSelectionPage: React.FC<BudgetSelectionPageProps> = ({}): JSX.Element => {
@@ -53,6 +26,7 @@ export const BudgetSelectionPage: React.FC<BudgetSelectionPageProps> = ({}): JSX
     if (selectedBudget) {
       dispatch(setBudget(selectedBudget))
       router.navigateTo(InsightRoute.BudgetHub, { budgetId: selectedBudget.id })
+      return
     }
     logger.log('Invalid budget selected')
   }
@@ -74,6 +48,7 @@ export const BudgetSelectionPage: React.FC<BudgetSelectionPageProps> = ({}): JSX
           />
         ))}
       </div>
+      <BudgetCreateButton color="primary" />
     </div>
   )
 }

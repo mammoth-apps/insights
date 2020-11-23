@@ -5,4 +5,4 @@ const CompanyDetailsComponent = () => {
   return <div>Company Details coming soon...</div>
 }
 
-export const CompanyDetails = withNavigationBar(CompanyDetailsComponent)
+export const CompanyDetailsPage = withNavigationBar(CompanyDetailsComponent)
