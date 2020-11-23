@@ -30,6 +30,11 @@ const budgetSlice = createSlice({
   name: 'budgets',
   initialState,
   reducers: {
+    createBudgetStart: startLoading,
+    createBudgetSuccess: (state, { payload }: PayloadAction<IBudget>) => {
+      state.budgetList.push(payload)
+    },
+    createBudgetFailure: loadingFailed,
     getBudgetListStart: startLoading,
     getBudgetFailure: loadingFailed,
     getBudgetListSuccess: (state, { payload }: PayloadAction<IBudget[]>) => {
@@ -44,6 +49,9 @@ const budgetSlice = createSlice({
 })
 
 export const {
+  createBudgetFailure,
+  createBudgetStart,
+  createBudgetSuccess,
   getBudgetListStart,
   setBudget,
   getBudgetListSuccess,
@@ -57,6 +65,18 @@ export const fetchBudgets = (): AppThunk => async (dispatch) => {
     dispatch(getBudgetListSuccess(result))
   } catch (err: any) {
     dispatch(getBudgetFailure(err.toString()))
+  }
+}
+
+export const createBudget = (budgetName: string): AppThunk => async (
+  dispatch,
+) => {
+  try {
+    dispatch(createBudgetStart())
+    const result = await budgetApi.createBudget(budgetName)
+    dispatch(createBudgetSuccess(result))
+  } catch (err: any) {
+    dispatch(createBudgetFailure(err.toString))
   }
 }
 
