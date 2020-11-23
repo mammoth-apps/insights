@@ -1,1 +1,1 @@
-export { default as payeeReducer } from './payeeSlice'
+export { default as payeeReducer } from './payee-slice'
