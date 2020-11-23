@@ -3,10 +3,9 @@ import { useDispatch, useSelector } from 'react-redux'
 import type { RootState } from '../../app'
 import { InsightRoute } from '../../router/routes'
 import { useRouter } from '../../router/useRouter'
-import { logger } from '../../utils/logger'
 import { BudgetCard } from '../budget/budget-card'
 import { BudgetCreateButton } from '../budget/budget-create-button'
-import { fetchBudgets, setBudget } from '../budget/budget-slice'
+import { deleteBudget, fetchBudgets, setBudget } from '../budget/budget-slice'
 
 interface BudgetSelectionPageProps {}
 export const BudgetSelectionPage: React.FC<BudgetSelectionPageProps> = ({}): JSX.Element => {
@@ -21,17 +20,14 @@ export const BudgetSelectionPage: React.FC<BudgetSelectionPageProps> = ({}): JSX
 
   // Hooks End
 
-  const onBudgetSelect = (id: string) => {
-    const selectedBudget = budgetList.find((budget) => budget.id === id)
-    if (selectedBudget) {
-      dispatch(setBudget(selectedBudget))
-      router.navigateTo(InsightRoute.BudgetHub, { budgetId: selectedBudget.id })
-      return
-    }
-    logger.log('Invalid budget selected')
+  const onBudgetSelect = (budgetId: string) => {
+    dispatch(setBudget(budgetId))
+    router.navigateTo(InsightRoute.BudgetHub, { budgetId })
   }
 
-  const onBudgetDelete = (id: string) => {}
+  const onBudgetDelete = (id: string) => {
+    dispatch(deleteBudget(id))
+  }
 
   return (
     <div className="m-2">

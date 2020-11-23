@@ -1,4 +1,4 @@
-import type { IBudget } from '@mammoth-apps/api-interfaces'
+import type { IBudget, IDeleteResponse } from '@mammoth-apps/api-interfaces'
 import { axiosInstance, replaceKeyPlaceholders } from '../utils'
 import { BaseApi } from './base.api'
 
@@ -20,7 +20,7 @@ class BudgetApi extends BaseApi {
     return response.data
   }
 
-  public async deleteBudget(budgetId: string): Promise<IBudget[]> {
+  public async deleteBudget(budgetId: string): Promise<IDeleteResponse> {
     const response = await axiosInstance.delete(
       replaceKeyPlaceholders(ApiRoute.DeleteBudget, { budgetId }),
     )
