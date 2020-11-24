@@ -1,4 +1,4 @@
-import type { IAccount } from '@mammoth-apps/api-interfaces'
+import type { IAccount, ICreateAccount } from '@mammoth-apps/api-interfaces'
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { accountApi } from '../../api/account.api'
 import type { AppThunk } from '../../app'
@@ -49,6 +49,9 @@ const accountSlice = createSlice({
 })
 
 export const {
+  createAccountFailure,
+  createAccountStart,
+  createAccountSuccess,
   getAccountListStart,
   getAccountListSuccess,
   getAccountListFailure,
@@ -65,5 +68,17 @@ export const fetchAccountList = (budgetId: string): AppThunk => async (
     dispatch(getAccountListSuccess(result))
   } catch (err: any) {
     dispatch(getAccountListFailure(err.toString()))
+  }
+}
+
+export const createAccount = (account: ICreateAccount): AppThunk => async (
+  dispatch,
+) => {
+  try {
+    dispatch(createAccountStart())
+    const result = await accountApi.createAccount(account)
+    dispatch(createAccountSuccess(result))
+  } catch (err: any) {
+    dispatch(createAccountFailure(err.toString()))
   }
 }

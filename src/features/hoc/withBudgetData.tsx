@@ -1,6 +1,8 @@
 import React, { ComponentType, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import type { RootState } from '../../app'
+import { InsightRoute } from '../../router/routes'
+import { useRouter } from '../../router/useRouter'
 import { fetchAccountList } from '../accounts/account-slice'
 import { fetchCategoryList } from '../category/category-slice'
 import { fetchPayeeList } from '../payee/payee-slice'
@@ -9,6 +11,7 @@ export const withBudgetData = (WrappedComponent: ComponentType) => (
   props: any,
 ) => {
   const dispatch = useDispatch()
+  const router = useRouter()
   const {
     isAccountsLoading,
     isCategoriesLoading,
@@ -22,6 +25,9 @@ export const withBudgetData = (WrappedComponent: ComponentType) => (
   }))
 
   useEffect(() => {
+    if (!budgetId) {
+      router.push(InsightRoute.App)
+    }
     if (budgetId) {
       dispatch(fetchAccountList(budgetId))
       dispatch(fetchPayeeList(budgetId))

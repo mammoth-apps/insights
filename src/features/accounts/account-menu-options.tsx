@@ -1,23 +1,19 @@
 import { List } from '@material-ui/core'
-import React, { ReactNode } from 'react'
+import React from 'react'
 import { useSelector } from 'react-redux'
 import type { RootState } from '../../app'
+import { AccountAddDialogListItem } from './account-add-dialog-list-item'
 import { AccountMenuOptionsListItem } from './account-menu-options-list-item'
 
-type AccountMenuOptionsProps = {
-  children?: ReactNode
-}
-
-export const AccountMenuOptions = ({ children }: AccountMenuOptionsProps) => {
+export const AccountMenuOptions = () => {
   const { accounts } = useSelector((state: RootState) => ({
     accounts: state.accounts.accounts,
   }))
-  return (
-    <List dense={true}>
-      {accounts.map((account) => (
-        <AccountMenuOptionsListItem key={account.id} details={account} />
-      ))}
-      {children}
-    </List>
-  )
+
+  const listItems = accounts.map((account) => (
+    <AccountMenuOptionsListItem key={account.id} details={account} />
+  ))
+  listItems.push(<AccountAddDialogListItem key="account-menu-add-button" />)
+
+  return <List dense={true}>{listItems}</List>
 }
