@@ -5,7 +5,7 @@ import type {
 import { axiosInstance, replaceKeyPlaceholders, toQueryParams } from '../utils'
 
 enum ApiRoute {
-  SearchTransactions = 'api/v1/transaction/:budgetId/search',
+  SearchTransactionsDateRange = 'api/v1/transaction/:budgetId/search-date-range',
 }
 
 class TransactionSearchApi {
@@ -20,7 +20,7 @@ class TransactionSearchApi {
     budgetId: string,
     searchRequest: IDateRangeSearchQuery,
   ): Promise<ITransactionDetail[]> {
-    const url = replaceKeyPlaceholders(ApiRoute.SearchTransactions, {
+    const url = replaceKeyPlaceholders(ApiRoute.SearchTransactionsDateRange, {
       budgetId,
     }).concat(toQueryParams(searchRequest))
     const response = await axiosInstance.get<ITransactionDetail[]>(url)

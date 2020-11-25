@@ -31,6 +31,7 @@
     "@reduxjs/toolkit": "^1.4.0",
     "@tailwindcss/ui": "^0.7.2",
     "axios": "^0.21.0",
+    "date-fns": "^2.16.1",
     "fontsource-roboto": "^3.0.3",
     "react": "^16",
     "react-dom": "^16",
