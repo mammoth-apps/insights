@@ -1,1 +1,1 @@
-export { default as transactionReducer } from './transactionSlice'
+export { default as transactionReducer } from './transaction-slice'

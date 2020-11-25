@@ -1,5 +1,5 @@
 import React from 'react'
-import { CategorySpendingViewGraph } from '../category/category-spending-view-graph'
+import { CategorySpendingViewGraphContainer } from '../category/category-spending-view-graph-container'
 import { DynamicIncomeVsExpenseGraph } from '../graphs/dynamic-income-vs-expense-graph'
 import { IncomeVsExpenseGraph } from '../graphs/income-vs-expense-graph'
 import { NetWorthGraph } from '../graphs/net-worth-graph'
@@ -10,7 +10,7 @@ export const InsightBudgetHomePage = () => {
   return (
     <article>
       <div className="flex-row">
-        <CategorySpendingViewGraph />
+        <CategorySpendingViewGraphContainer />
         <TransactionUpcomingList />
       </div>
       <div className="flex-row">
