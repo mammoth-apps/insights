@@ -18,7 +18,10 @@ export const AccountMenuOptionsListItem = ({
   const onAccountClick = () => {
     const { budgetId, id: accountId } = details
     router.push(
-      replaceKeyPlaceholders(InsightRoute.AccountPage, { budgetId, accountId }),
+      replaceKeyPlaceholders(InsightRoute.AccountTransactionsPage, {
+        budgetId,
+        accountId,
+      }),
     )
   }
 

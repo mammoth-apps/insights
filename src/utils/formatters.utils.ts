@@ -1,14 +1,16 @@
 import type { IDateModel } from '@mammoth-apps/api-interfaces'
-// import moment from 'moment'
+import { format, parseISO } from 'date-fns'
+import { format as dateFnTzFormat } from 'date-fns-tz'
 
 export const formatter = {
-  // ! moment is out of support, so need to remove that and use date-fns
-  // date(dateValue: string): string {
-  //   return moment(dateValue).format('MM-DD-YYYY')
-  // },
-  // utcFormat(date: Date = new Date()): string {
-  //   return moment.parseZone(date.toString()).utc().format()
-  // },
+  // TODO: Make sure this actually formats
+  date(dateValue: string): string {
+    return format(parseISO(dateValue), 'mm-dd-yyyy')
+  },
+  // TODO: Make sure this actually formats
+  utcFormat(date: Date = new Date()): string {
+    return dateFnTzFormat(date.toString(), 'mm-dd-yyyy')
+  },
   currency(value: number): string {
     if (value < 0) {
       return `-$${Math.abs(value).toFixed(2)}`

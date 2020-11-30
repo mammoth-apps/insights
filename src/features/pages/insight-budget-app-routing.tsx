@@ -4,7 +4,7 @@ import { InsightRoute } from '../../router/routes'
 import { AccountMenuOptions } from '../accounts'
 import { InsightAppPageLayout } from '../app/InsightAppPageLayout'
 import { BudgetMenuOptions } from '../budget'
-import { AccountPage } from './account-page'
+import { AccountTransactionsPage } from './account-transactions-page'
 import { CategoryBreakdownPage } from './category-breakdown-page'
 import { InsightBudgetHomePage } from './insight-budget-home-page'
 import { TransactionsPage } from './transactions-page'
@@ -25,7 +25,10 @@ export const InsightBudgetAppPage = () => {
             path={InsightRoute.CategoryBreakdownPage}
             component={CategoryBreakdownPage}
           />
-          <Route path={InsightRoute.AccountPage} component={AccountPage} />
+          <Route
+            path={InsightRoute.AccountTransactionsPage}
+            component={AccountTransactionsPage}
+          />
           <Route
             path={InsightRoute.TransactionsPage}
             component={TransactionsPage}

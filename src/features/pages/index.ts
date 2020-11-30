@@ -1,4 +1,4 @@
-export { AccountPage } from './account-page'
+export { AccountTransactionsPage } from './account-transactions-page'
 export { BudgetSelectionPage } from './budget-selection-page'
 export { CategoryBreakdownPage } from './category-breakdown-page'
 export { CompanyDetailsPage } from './company-details-page'
