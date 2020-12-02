@@ -31,7 +31,9 @@ const payeeSlice = createSlice({
   initialState: initialState,
   reducers: {
     createPayeeStart: startLoading,
-    createPayeeSuccess: (state, { payload }: PayloadAction<IPayee>) => {},
+    createPayeeSuccess: (state, { payload }: PayloadAction<IPayee>) => {
+      state.payees = [...state.payees, payload]
+    },
     createPayeeFailure: loadingFailed,
     getPayeeStart: startLoading,
     getPayeeSuccess: (state, { payload }: PayloadAction<IPayee>) => {},
@@ -52,6 +54,9 @@ export const {
   getPayeeListStart,
   getPayeeListSuccess,
   getPayeeListFailure,
+  createPayeeStart,
+  createPayeeSuccess,
+  createPayeeFailure,
 } = payeeSlice.actions
 
 export default payeeSlice.reducer

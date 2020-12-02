@@ -1,4 +1,4 @@
-import type { ICategory } from '@mammoth-apps/api-interfaces'
+import type { ICategory, ICreateCategory } from '@mammoth-apps/api-interfaces'
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { categoryApi } from '../../api/category.api'
 import type { AppThunk } from '../../app'
@@ -37,6 +37,11 @@ const categorySlice = createSlice({
       state.loading = false
     },
     getCategoryListFailure: loadingFailed,
+    createCategoryStart: startLoading,
+    createCategorySuccess: (state, { payload }: PayloadAction<ICategory>) => {
+      state.categories = [...state.categories, payload]
+    },
+    createCategoryFailure: loadingFailed,
   },
 })
 
@@ -44,6 +49,9 @@ export const {
   getCategoryListStart,
   getCategoryListSuccess,
   getCategoryListFailure,
+  createCategoryStart,
+  createCategorySuccess,
+  createCategoryFailure,
 } = categorySlice.actions
 
 export default categorySlice.reducer
@@ -57,5 +65,17 @@ export const fetchCategoryList = (budgetId: string): AppThunk => async (
     dispatch(getCategoryListSuccess(result))
   } catch (err: any) {
     dispatch(getCategoryListFailure(err.toString()))
+  }
+}
+
+export const createCategory = (category: ICreateCategory): AppThunk => async (
+  dispatch,
+) => {
+  try {
+    dispatch(createCategoryStart())
+    const result = await categoryApi.createCategory(category)
+    dispatch(createCategorySuccess(result))
+  } catch (err: any) {
+    dispatch(createCategoryFailure(err.toString()))
   }
 }

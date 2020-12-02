@@ -4,14 +4,12 @@ import type {
   ITransaction,
   ITransactionDetail,
 } from '@mammoth-apps/api-interfaces'
-// import { ITransactionGridRow } from '../interface'
+import type { ITransactionGridRow } from '../interfaces'
 import { dateFormatter } from './formatters.utils'
 import { parser } from './parser.util'
 
 export const transactionFormatter = {
-  toPartialTransaction(
-    detail: Partial<ITransactionDetail>,
-  ): Partial<ITransaction> {
+  toPartialTransaction(detail: Partial<ITransactionDetail>): Partial<ITransaction> {
     const response: Partial<ITransaction> = {
       id: detail.id ?? undefined,
       budgetId: detail.budgetId,
@@ -25,23 +23,34 @@ export const transactionFormatter = {
     }
     return parser.removeEmpty(response)
   },
-  // toCreateTransaction(detail: ITransactionGridRow): ICreateTransaction {
-  //   return {
-  //     budgetId: detail.budgetId,
-  //     date: detail.date,
-  //     accountId: detail.accountId,
-  //     payeeId: detail.payeeId,
-  //     categoryId: detail.categoryId,
-  //     memo: detail.memo,
-  //     inflow: detail.inflow === undefined ? undefined : detail.inflow,
-  //     outflow: detail.outflow === undefined ? undefined : -detail.outflow,
-  //   }
-  // },
+  toCreateTransaction(detail: ITransactionGridRow): ICreateTransaction {
+    return {
+      budgetId: detail.budgetId,
+      date: detail.date,
+      accountId: detail.accountId,
+      payeeId: detail.payeeId,
+      categoryId: detail.categoryId,
+      memo: detail.memo,
+      inflow: detail.inflow === undefined ? undefined : detail.inflow,
+      outflow: detail.outflow === undefined ? undefined : -detail.outflow,
+    }
+  },
+  toTransaction(detail: ITransactionDetail): ITransaction {
+    return {
+      budgetId: detail.budgetId,
+      id: detail.id,
+      date: dateFormatter.toDateString(detail.date),
+      accountId: detail.accountId,
+      payeeId: detail.payeeId,
+      categoryId: detail.categoryId,
+      memo: detail.memo,
+      inflow: detail.inflow === undefined ? undefined : detail.inflow,
+      outflow: detail.outflow === undefined ? undefined : -detail.outflow,
+    }
+  },
 }
 
-const mapToTransactionDetail = (
-  transaction: ITransaction,
-): ITransactionDetail => {
+const mapToTransactionDetail = (transaction: ITransaction): ITransactionDetail => {
   return {
     id: '',
     budgetId: '',
@@ -55,14 +64,10 @@ const mapToTransactionDetail = (
   }
 }
 
-export const toTransactionDetail = (
-  transactions: ITransaction,
-): ITransactionDetail => {
+export const toTransactionDetail = (transactions: ITransaction): ITransactionDetail => {
   return mapToTransactionDetail(transactions)
 }
 
-export const toTransactionDetails = (
-  transactions: ITransaction[],
-): ITransactionDetail[] => {
+export const toTransactionDetails = (transactions: ITransaction[]): ITransactionDetail[] => {
   return transactions.map((transaction) => mapToTransactionDetail(transaction))
 }
