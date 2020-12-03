@@ -48,6 +48,19 @@ export const transactionFormatter = {
       outflow: detail.outflow === undefined ? undefined : -detail.outflow,
     }
   },
+  toGridView(transaction: ITransactionDetail): ITransactionGridRow {
+    return {
+      id: transaction.id,
+      accountId: transaction.accountId,
+      budgetId: transaction.budgetId,
+      categoryId: transaction.categoryId,
+      date: dateFormatter.toDateString(transaction.date),
+      inflow: transaction.inflow ?? 0,
+      memo: transaction.memo,
+      outflow: transaction.outflow ?? 0,
+      payeeId: transaction.payeeId,
+    }
+  },
 }
 
 const mapToTransactionDetail = (transaction: ITransaction): ITransactionDetail => {

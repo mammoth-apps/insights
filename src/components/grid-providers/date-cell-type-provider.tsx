@@ -2,7 +2,7 @@ import { DataTypeProvider } from '@devexpress/dx-react-grid'
 import { TextField } from '@material-ui/core'
 import { LocalizationProvider, MobileDatePicker } from '@material-ui/pickers'
 import DateFnAdapter from '@material-ui/pickers/adapter/date-fns'
-import dateFn from 'date-fns'
+import * as dateFn from 'date-fns'
 import React, { useEffect, useState } from 'react'
 import type { ITransactionGridRow } from '../../interfaces'
 import { formatter, parser } from '../../utils'
@@ -17,9 +17,7 @@ const DateCellEditor = ({
   value: any
   onValueChange: any
 }) => {
-  const [inputValue, setValue] = useState<Date | null>(
-    parser.date(cellValue) || new Date(),
-  )
+  const [inputValue, setValue] = useState<Date | null>(parser.date(cellValue) || new Date())
   useEffect(() => {
     onValueChange(formatter.utcFormat(inputValue ?? undefined))
     // ! This is effectively a useEffectOnce, I just want to get the initial value there.
@@ -36,11 +34,7 @@ const DateCellEditor = ({
   }
 
   return (
-    <LocalizationProvider
-      dateLibInstance={dateFn}
-      dateAdapter={DateFnAdapter}
-      locale={'us'}
-    >
+    <LocalizationProvider dateLibInstance={dateFn} dateAdapter={DateFnAdapter} locale={'us'}>
       <MobileDatePicker
         value={inputValue}
         onChange={onChange}

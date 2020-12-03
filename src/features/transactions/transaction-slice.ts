@@ -6,10 +6,10 @@ import type {
   ITransactionDetail,
 } from '@mammoth-apps/api-interfaces'
 import { createSelector, createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { transactionApi } from 'src/api/transaction.api'
-import { toTransactionDetail, transactionFormatter } from 'src/utils'
 import { transactionSearchApi } from '../../api/transaction-search.api'
-import type { AppThunk } from '../../app'
+import { transactionApi } from '../../api/transaction.api'
+import type { AppThunk, RootState } from '../../app'
+import { toTransactionDetail, transactionFormatter } from '../../utils'
 
 export interface ITransactionState {
   transactions: ITransactionDetail[]
@@ -154,5 +154,12 @@ export const getPastMonthTransactions = createSelector(transactionSelector, (tra
     })
     .filter((transaction) => transaction)
 })
+
+const stateSelector = (state: RootState) => state
+export const getTransactionsForCurrentAccount = createSelector(stateSelector, (state) =>
+  state.transactions.transactions.filter(
+    (transaction) => transaction.accountId == state.accounts.selectedAccount?.id,
+  ),
+)
 
 //#endregion Selectors

@@ -17,17 +17,17 @@ import type { ITransactionDetail } from '@mammoth-apps/api-interfaces'
 import Paper from '@material-ui/core/Paper'
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import type { RootState } from 'src/app'
+import type { RootState } from '../../app'
+import { AccountCellTypeProvider } from '../../features/accounts/account-cell-type-provider'
+import { CategoryCellTypeProvider } from '../../features/category/category-cell-type-provider'
+import { PayeeCellTypeProvider } from '../../features/payee/payee-cell-type-provider'
 import {
   createTransaction,
   deleteTransaction,
   updateTransaction,
-} from 'src/features/transactions/transaction-slice'
-import { transactionFormatter } from 'src/utils'
-import { AccountCellTypeProvider } from '../../features/accounts/account-cell-type-provider'
-import { CategoryCellTypeProvider } from '../../features/category/category-cell-type-provider'
-import { PayeeCellTypeProvider } from '../../features/payee/payee-cell-type-provider'
+} from '../../features/transactions/transaction-slice'
 import type { ITransactionGridRow } from '../../interfaces'
+import { transactionFormatter } from '../../utils'
 import { CurrencyCellTypeProvider } from '../grid-providers/currency-cell-type-provider'
 import { DateCellTypeProvider } from '../grid-providers/date-cell-type-provider'
 
@@ -116,13 +116,16 @@ export const TransactionDataGrid: React.FC<IDataTable<any>> = ({
       })
     }
     if (deleted) {
-      ;(deleted as string[]).forEach((transactionId) => {
+      const transactionIds = deleted as string[]
+      transactionIds.forEach((transactionId) => {
         dispatch(deleteTransaction(selectedBudgetId, transactionId))
       })
     }
   }
 
-  const validate = (rows: ITransactionDetail[], columns: IDataColumn<any>[]) => {
+  const validate = (rows: any, columns: IDataColumn<any>[]) => {
+    // TODO: Need to check out this type, it seems to have changed.
+    console.log(rows, columns)
     return Object.entries(rows).reduce(
       (acc, [rowId, row]) => ({
         ...acc,
@@ -133,7 +136,9 @@ export const TransactionDataGrid: React.FC<IDataTable<any>> = ({
     )
   }
 
-  const onEdited = (edited: ITransactionDetail[]) => setErrors(validate(edited, columns))
+  const onEdited = (edited: { [key: string]: any }) => {
+    setErrors(validate(edited, columns))
+  }
 
   return (
     <Paper>

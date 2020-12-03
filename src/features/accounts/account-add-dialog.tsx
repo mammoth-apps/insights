@@ -12,7 +12,7 @@ import {
 } from '@material-ui/core'
 import React, { ChangeEvent, useState } from 'react'
 import { useSelector } from 'react-redux'
-import type { RootState } from 'src/app'
+import type { RootState } from '../../app'
 
 interface IAddAccountDialogProps {
   onClose: (accountDetails: ICreateAccount | null) => void
@@ -25,9 +25,7 @@ export const AccountAddDialog: React.FC<IAddAccountDialogProps> = ({
   onClose,
   isOpen,
 }): JSX.Element => {
-  const budgetId = useSelector(
-    (state: RootState) => state.budgets.selectedBudget?.id,
-  )
+  const budgetId = useSelector((state: RootState) => state.budgets.selectedBudget?.id)
 
   const [details, setDetails] = useState<ICreateAccount>({
     name: '',
@@ -57,9 +55,7 @@ export const AccountAddDialog: React.FC<IAddAccountDialogProps> = ({
   return (
     <Dialog onClose={handleClose} aria-labelledby="dialog-title" open={isOpen}>
       <DialogTitle id="dialog-title">Add Account</DialogTitle>
-      <DialogContent
-        style={{ display: 'flex', flexDirection: 'column', margin: '1rem' }}
-      >
+      <DialogContent style={{ display: 'flex', flexDirection: 'column', margin: '1rem' }}>
         <TextField
           label={'Account Name'}
           name={(key = 'name')}

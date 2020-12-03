@@ -4,22 +4,16 @@ import { TextField } from '@material-ui/core'
 import { Autocomplete, createFilterOptions } from '@material-ui/lab'
 import React, { useCallback, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { categoryApi } from 'src/api/category.api'
-import type { RootState } from 'src/app'
+import { categoryApi } from '../../api/category.api'
+import type { RootState } from '../../app'
 import type { ITransactionGridRow } from '../../interfaces'
-import {
-  createCategoryFailure,
-  createCategoryStart,
-  createCategorySuccess,
-} from './category-slice'
+import { createCategoryFailure, createCategoryStart, createCategorySuccess } from './category-slice'
 
 const filter = createFilterOptions<ICategory>()
 
 type CellGridView = { value: string }
 const CategoryCellFormatter = ({ value }: CellGridView) => {
-  const categoryList = useSelector(
-    (rootState: RootState) => rootState.categories.categories,
-  )
+  const categoryList = useSelector((rootState: RootState) => rootState.categories.categories)
   const categoryDetails = categoryList.find((category) => category.id === value)
   return <span>{categoryDetails?.name ?? 'I messed up'}</span>
 }

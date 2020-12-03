@@ -8,9 +8,7 @@ import type { ITransactionGridRow } from '../../interfaces'
 type CellGridView = { value: string }
 
 const AccountCellFormatter = ({ value }: CellGridView) => {
-  const accountList = useSelector(
-    (rootState: RootState) => rootState.accounts.accounts,
-  )
+  const accountList = useSelector((rootState: RootState) => rootState.accounts.accounts)
   const accountDetails = accountList.find((account) => account.id === value)
   return <span>{accountDetails?.name ?? 'I messed up'}</span>
 }
@@ -18,9 +16,7 @@ const AccountCellFormatter = ({ value }: CellGridView) => {
 const AccountCellEditor = ({ value, onValueChange }: any) => {
   const accountId: string | undefined = value // when it's add mode this is undefined
   const [selectedAccountId, setSelectedAccountId] = useState(accountId)
-  const accounts = useSelector(
-    (rootState: RootState) => rootState.accounts.accounts,
-  )
+  const accounts = useSelector((rootState: RootState) => rootState.accounts.accounts)
   const onChange = (
     event: React.ChangeEvent<{
       name?: string | undefined
@@ -52,7 +48,6 @@ const AccountCellEditor = ({ value, onValueChange }: any) => {
 let detailKey: keyof ITransactionGridRow
 
 export const AccountCellTypeProvider = () => {
-  console.log('AccountCellType')
   return (
     <DataTypeProvider
       for={[(detailKey = 'accountId')]}
