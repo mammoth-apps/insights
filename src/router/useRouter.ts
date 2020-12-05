@@ -1,10 +1,5 @@
 import { useMemo } from 'react'
-import {
-  useHistory,
-  useLocation,
-  useParams,
-  useRouteMatch,
-} from 'react-router-dom'
+import { useHistory, useLocation, useParams, useRouteMatch } from 'react-router-dom'
 import { replaceKeyPlaceholders } from '../utils'
 import type { InsightRoute } from './routes'
 
@@ -12,7 +7,7 @@ import type { InsightRoute } from './routes'
  * useRouter is a wrapper around methods that are exposed by `react-router-dom` to allow for a one stop shop of data grabbing
  */
 export const useRouter = <TState extends any>() => {
-  const params = useParams()
+  const params = useParams<any>()
   const location = useLocation<TState>()
   const history = useHistory<any>()
   const match = useRouteMatch()

@@ -1,17 +1,30 @@
 import type { ITransactionDetail } from '@mammoth-apps/api-interfaces'
-import React from 'react'
-import { useSelector } from 'react-redux'
+import React, { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import type { RootState } from '../../app'
 import {
   IColumnExtension,
   IDataColumn,
   TransactionDataGrid,
 } from '../../components/grid/transaction-data-grid'
+import { useRouter } from '../../router/useRouter'
 import { transactionFormatter } from '../../utils'
-import { getTransactionsForCurrentAccount } from '../transactions/transaction-slice'
+import { getTransactionsByLinkId } from '../transactions/transaction-slice'
 
 export const AccountTransactionsPage = () => {
-  const transactions = useSelector((state: RootState) => getTransactionsForCurrentAccount(state))
+  // The route for this page is /app/:budgetId/account/:accountId so that's where these props come from in params
+  const { params } = useRouter()
+  const { budgetId, accountId } = params
+  const dispatch = useDispatch()
+  const { transactions, isLoading } = useSelector((state: RootState) => ({
+    isLoading: state.transactions.loading,
+    transactions: Object.values(state.transactions.transactions),
+  }))
+  useEffect(() => {
+    if (budgetId && accountId && !isLoading) {
+      dispatch(getTransactionsByLinkId(budgetId, { accountId }))
+    }
+  }, [])
 
   const dataColumns: IDataColumn<ITransactionDetail>[] = [
     { name: 'date', title: 'Date', isRequired: true },
