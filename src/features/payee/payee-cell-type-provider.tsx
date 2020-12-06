@@ -7,11 +7,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { payeeApi } from '../../api/payee.api'
 import type { RootState } from '../../app'
 import type { ITransactionGridRow } from '../../interfaces'
-import {
-  createPayeeFailure,
-  createPayeeStart,
-  createPayeeSuccess,
-} from './payee-slice'
+import { createPayeeFailure, createPayeeStart, createPayeeSuccess } from './payee-slice'
 
 const filter = createFilterOptions<IPayee>()
 
@@ -27,15 +23,11 @@ const PayeeCellFormatter = ({ value: payeeId }: CellGridView) => {
 const PayeeCellEditor = ({ value, onValueChange }: any) => {
   const dispatch = useDispatch()
   const payeeId: string | undefined = value // when it's add mode this is undefined
-  const { matchingPayee, payeeList, selectedBudgetId } = useSelector(
-    (rootState: RootState) => ({
-      payeeList: rootState.categories.categories,
-      matchingPayee: rootState.payees.payees.find(
-        (payee) => payee.id === payeeId,
-      ),
-      selectedBudgetId: rootState.budgets.selectedBudget?.id,
-    }),
-  )
+  const { matchingPayee, payeeList, selectedBudgetId } = useSelector((rootState: RootState) => ({
+    payeeList: rootState.payees.payees,
+    matchingPayee: rootState.payees.payees.find((payee) => payee.id === payeeId),
+    selectedBudgetId: rootState.budgets.selectedBudget?.id,
+  }))
   const [selectedPayee, setSelectedPayee] = useState<IPayee | null>(
     payeeId ? matchingPayee ?? null : null,
   )
@@ -53,9 +45,7 @@ const PayeeCellEditor = ({ value, onValueChange }: any) => {
       // create the payee and set the selectedPayee to the server payee
       let payeeName = typeof payee === 'string' ? payee : payee.name
       payeeName =
-        payeeName.charAt(payeeName.length - 1) === '"'
-          ? payeeName.slice(0, -1)
-          : payeeName
+        payeeName.charAt(payeeName.length - 1) === '"' ? payeeName.slice(0, -1) : payeeName
       // * Two cases come in here one that looks like 'Create "Payee A"' and one that looks like 'Payee A'
 
       dispatch(createPayeeStart())

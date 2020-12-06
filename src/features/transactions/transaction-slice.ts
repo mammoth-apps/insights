@@ -9,7 +9,7 @@ import { createSelector, createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { transactionSearchApi } from '../../api/transaction-search.api'
 import { transactionApi } from '../../api/transaction.api'
 import type { AppThunk, RootState } from '../../app'
-import { toTransactionDetail, transactionFormatter } from '../../utils'
+import { transactionFormatter } from '../../utils'
 
 type TransactionMap = Record<string, ITransactionDetail>
 
@@ -53,15 +53,15 @@ const transactionSlice = createSlice({
     },
     createTransactionStart: startLoading,
     createTransactionFailure: loadingFailed,
-    createTransactionSuccess: (state, { payload }: PayloadAction<ITransaction>) => {
+    createTransactionSuccess: (state, { payload }: PayloadAction<ITransactionDetail>) => {
       state.loading = false
-      state.transactions = { ...state.transactions, [payload.id]: toTransactionDetail(payload) }
+      state.transactions = { ...state.transactions, [payload.id]: payload }
     },
     updateTransactionStart: startLoading,
     updateTransactionFailure: loadingFailed,
-    updateTransactionSuccess: (state, { payload }: PayloadAction<ITransaction>) => {
+    updateTransactionSuccess: (state, { payload }: PayloadAction<ITransactionDetail>) => {
       state.loading = false
-      state.transactions = { ...state.transactions, [payload.id]: toTransactionDetail(payload) }
+      state.transactions = { ...state.transactions, [payload.id]: payload }
     },
     deleteTransactionStart: startLoading,
     deleteTransactionFailure: loadingFailed,

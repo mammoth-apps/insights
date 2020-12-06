@@ -1,6 +1,5 @@
 import type {
   ICreateTransaction,
-  IDateModel,
   ITransaction,
   ITransactionDetail,
 } from '@mammoth-apps/api-interfaces'
@@ -61,26 +60,4 @@ export const transactionFormatter = {
       payeeId: transaction.payeeId,
     }
   },
-}
-
-const mapToTransactionDetail = (transaction: ITransaction): ITransactionDetail => {
-  return {
-    id: '',
-    budgetId: '',
-    account: { id: '', value: '' },
-    payee: { id: '', value: '' },
-    category: { id: '', value: '' },
-    date: {} as IDateModel, // TODO: Transaction - Need to map this correctly
-    categoryId: '',
-    payeeId: '',
-    accountId: '',
-  }
-}
-
-export const toTransactionDetail = (transactions: ITransaction): ITransactionDetail => {
-  return mapToTransactionDetail(transactions)
-}
-
-export const toTransactionDetails = (transactions: ITransaction[]): ITransactionDetail[] => {
-  return transactions.map((transaction) => mapToTransactionDetail(transaction))
 }

@@ -47,8 +47,8 @@ class TransactionApi {
   public async createTransaction(
     budgetId: string,
     payload: ICreateTransaction,
-  ): Promise<ITransaction> {
-    const response = await axiosInstance.post<ITransaction>(
+  ): Promise<ITransactionDetail> {
+    const response = await axiosInstance.post<ITransactionDetail>(
       replaceKeyPlaceholders(ApiRoute.CreateTransaction, { budgetId }),
       payload,
     )
@@ -87,8 +87,8 @@ class TransactionApi {
   public async updateTransaction(
     budgetId: string,
     payload: ITransaction,
-  ): Promise<ITransaction> {
-    const response = await axiosInstance.post<ITransaction>(
+  ): Promise<ITransactionDetail> {
+    const response = await axiosInstance.post<ITransactionDetail>(
       replaceKeyPlaceholders(ApiRoute.ModifyExistingTransaction, {
         budgetId,
         transactionId: payload.id,
@@ -109,11 +109,11 @@ class TransactionApi {
   public async searchTransactions(
     budgetId: string,
     query?: Partial<ITransactionQuery>,
-  ): Promise<ITransaction[]> {
+  ): Promise<ITransactionDetail[]> {
     const url = replaceKeyPlaceholders(ApiRoute.SearchTransactions, {
       budgetId,
     }).concat(toQueryParams(query ?? {}))
-    const response = await axiosInstance.get<ITransaction[]>(url)
+    const response = await axiosInstance.get<ITransactionDetail[]>(url)
     return response.data
   }
 }

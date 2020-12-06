@@ -3,9 +3,10 @@ import { TextField } from '@material-ui/core'
 import { LocalizationProvider, MobileDatePicker } from '@material-ui/pickers'
 import DateFnAdapter from '@material-ui/pickers/adapter/date-fns'
 import * as dateFn from 'date-fns'
+import enLocale from 'date-fns/locale/en-US'
 import React, { useEffect, useState } from 'react'
 import type { ITransactionGridRow } from '../../interfaces'
-import { formatter, parser } from '../../utils'
+import { formatter } from '../../utils'
 
 const DateCellFormatter = ({ value }: { value: any }) => {
   return <span>{formatter.date(value)}</span>
@@ -13,15 +14,16 @@ const DateCellFormatter = ({ value }: { value: any }) => {
 const DateCellEditor = ({
   value: cellValue,
   onValueChange,
+  ...props
 }: {
   value: any
   onValueChange: any
 }) => {
-  const [inputValue, setValue] = useState<Date | null>(parser.date(cellValue) || new Date())
+  const [inputValue, setValue] = useState<Date | null>(
+    formatter.stringToDate(cellValue) || new Date(),
+  )
   useEffect(() => {
-    onValueChange(formatter.utcFormat(inputValue ?? undefined))
-    // ! This is effectively a useEffectOnce, I just want to get the initial value there.
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    onValueChange(formatter.utcDateFormat(inputValue))
   }, [])
 
   const onChange = (newValue: Date | null) => {
@@ -29,12 +31,12 @@ const DateCellEditor = ({
       setValue(null)
       return
     }
-    onValueChange(formatter.utcFormat(newValue))
+    onValueChange(formatter.utcDateFormat(newValue))
     setValue(newValue)
   }
 
   return (
-    <LocalizationProvider dateLibInstance={dateFn} dateAdapter={DateFnAdapter} locale={'us'}>
+    <LocalizationProvider dateLibInstance={dateFn} dateAdapter={DateFnAdapter} locale={enLocale}>
       <MobileDatePicker
         value={inputValue}
         onChange={onChange}

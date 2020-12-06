@@ -75,6 +75,7 @@ export interface IDataTable<TData> {
   columns: IDataColumn<TData>[]
   columnExtensions?: IColumnExtension<TData>[]
   transactions: ITransactionGridRow[]
+
   hideControls?: boolean
 }
 
@@ -105,9 +106,14 @@ export const TransactionDataGrid: React.FC<IDataTable<any>> = ({
 
   const commitChanges = ({ added, changed, deleted }: ChangeSet) => {
     if (added) {
-      const rows = added as ITransactionGridRow[]
+      const rows = added as Omit<ITransactionGridRow, 'budgetId'>[]
+      // this is a new transaction so need to pass it along the Id otherwise I could pick it from state
       rows.forEach((row) => {
-        dispatch(createTransaction(transactionFormatter.toCreateTransaction(row)))
+        dispatch(
+          createTransaction(
+            transactionFormatter.toCreateTransaction({ ...row, budgetId: selectedBudgetId }),
+          ),
+        )
       })
     }
     if (changed) {

@@ -1,16 +1,18 @@
 import type { IDateModel } from '@mammoth-apps/api-interfaces'
-import { format } from 'date-fns'
+import { format, parseISO, toDate } from 'date-fns'
 
 export const formatter = {
-  // TODO: Make sure this actually formats
   date(dateValue: string): string {
     return format(new Date(dateValue), 'MM/dd/yyyy')
   },
-  // TODO: Make sure this actually formats
-  utcFormat(date: Date = new Date()): string {
-    console.log('date', date)
-    return ''
-    // return dateFnTzFormat(date.toString(), 'mm-dd-yyyy')
+  stringToDate(dateValue: string | null): Date {
+    return dateValue ? toDate(new Date(dateValue)) : new Date()
+  },
+  utcFormat(dateValue: string): string {
+    return parseISO(dateValue).toISOString()
+  },
+  utcDateFormat(dateValue: Date | null): string {
+    return dateValue ? dateValue.toISOString() : new Date().toISOString()
   },
   currency(value: number): string {
     if (value < 0) {

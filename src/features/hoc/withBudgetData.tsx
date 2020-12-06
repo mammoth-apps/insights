@@ -10,13 +10,7 @@ import { fetchPayeeList } from '../payee/payee-slice'
 export const withBudgetData = (WrappedComponent: ComponentType) => (props: any) => {
   const dispatch = useDispatch()
   const router = useRouter()
-  const {
-    hasAccounts,
-    hasCategories,
-    hasPayees,
-
-    budgetId,
-  } = useSelector((state: RootState) => ({
+  const { hasAccounts, hasCategories, hasPayees, budgetId } = useSelector((state: RootState) => ({
     hasAccounts: state.accounts.accounts.length > 0,
     hasCategories: state.categories.categories.length > 0,
     hasPayees: state.payees.payees.length > 0,
