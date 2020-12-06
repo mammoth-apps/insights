@@ -7,20 +7,19 @@ import { fetchAccountList } from '../accounts/account-slice'
 import { fetchCategoryList } from '../category/category-slice'
 import { fetchPayeeList } from '../payee/payee-slice'
 
-export const withBudgetData = (WrappedComponent: ComponentType) => (
-  props: any,
-) => {
+export const withBudgetData = (WrappedComponent: ComponentType) => (props: any) => {
   const dispatch = useDispatch()
   const router = useRouter()
   const {
-    isAccountsLoading,
-    isCategoriesLoading,
-    isPayeeLoading,
+    hasAccounts,
+    hasCategories,
+    hasPayees,
+
     budgetId,
   } = useSelector((state: RootState) => ({
-    isAccountsLoading: state.accounts.loading,
-    isCategoriesLoading: state.categories.loading,
-    isPayeeLoading: state.payees.loading,
+    hasAccounts: state.accounts.accounts.length > 0,
+    hasCategories: state.categories.categories.length > 0,
+    hasPayees: state.payees.payees.length > 0,
     budgetId: state.budgets.selectedBudget?.id,
   }))
 
@@ -29,18 +28,15 @@ export const withBudgetData = (WrappedComponent: ComponentType) => (
       router.push(InsightRoute.App)
     }
     if (budgetId) {
-      dispatch(fetchAccountList(budgetId))
-      dispatch(fetchPayeeList(budgetId))
-      dispatch(fetchCategoryList(budgetId))
+      // pre-loading some data, can't hold up the page or else nothing will render since you could have nothing to start.
+      if (!hasAccounts) dispatch(fetchAccountList(budgetId))
+      if (!hasCategories) dispatch(fetchPayeeList(budgetId))
+      if (!hasPayees) dispatch(fetchCategoryList(budgetId))
     }
   }, [])
 
   if (!budgetId) {
     return <div>No budget currently selected</div>
-  }
-
-  if (isAccountsLoading || isCategoriesLoading || isPayeeLoading) {
-    return <div>Getting things ready...</div>
   }
 
   return <WrappedComponent />
