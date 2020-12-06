@@ -1,4 +1,4 @@
-export interface ITransactionGridRow {
+export interface ITransactionGridView {
   id?: string
   budgetId: string
   date: string

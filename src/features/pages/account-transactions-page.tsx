@@ -7,6 +7,7 @@ import {
   IDataColumn,
   TransactionDataGrid,
 } from '../../components/grid/transaction-data-grid'
+import type { ITransactionGridView } from '../../interfaces'
 import { useRouter } from '../../router/useRouter'
 import { transactionFormatter } from '../../utils'
 import { getTransactionsByLinkId } from '../transactions/transaction-slice'
@@ -18,7 +19,7 @@ export const AccountTransactionsPage = () => {
   const dispatch = useDispatch()
   const { transactions, isLoading } = useSelector((state: RootState) => ({
     isLoading: state.transactions.loading,
-    transactions: Object.values(state.transactions.transactions),
+    transactions: state.transactions.transactions,
   }))
   useEffect(() => {
     if (budgetId && accountId && !isLoading) {
@@ -45,7 +46,13 @@ export const AccountTransactionsPage = () => {
 
   return (
     <TransactionDataGrid
-      transactions={transactions.map((transaction) => transactionFormatter.toGridView(transaction))}
+      transactions={Object.keys(transactions).reduce(
+        (acc, transactionId) => ({
+          ...acc,
+          [transactionId]: transactionFormatter.toGridView(transactions[transactionId]),
+        }),
+        {} as Record<string, ITransactionGridView>,
+      )}
       columns={dataColumns}
       columnExtensions={columnExtensions}
     />

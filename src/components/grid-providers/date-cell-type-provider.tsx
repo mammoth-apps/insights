@@ -5,7 +5,7 @@ import DateFnAdapter from '@material-ui/pickers/adapter/date-fns'
 import * as dateFn from 'date-fns'
 import enLocale from 'date-fns/locale/en-US'
 import React, { useEffect, useState } from 'react'
-import type { ITransactionGridRow } from '../../interfaces'
+import type { ITransactionGridView } from '../../interfaces'
 import { formatter } from '../../utils'
 
 const DateCellFormatter = ({ value }: { value: any }) => {
@@ -47,7 +47,7 @@ const DateCellEditor = ({
 }
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-let detailKey: keyof ITransactionGridRow
+let detailKey: keyof ITransactionGridView
 
 export const DateCellTypeProvider = () => {
   return (

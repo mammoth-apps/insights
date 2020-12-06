@@ -9,12 +9,11 @@ import { createSelector, createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { transactionSearchApi } from '../../api/transaction-search.api'
 import { transactionApi } from '../../api/transaction.api'
 import type { AppThunk, RootState } from '../../app'
-import { transactionFormatter } from '../../utils'
 
-type TransactionMap = Record<string, ITransactionDetail>
+type TransactionRecords = Record<string, ITransactionDetail>
 
 export interface ITransactionState {
-  transactions: TransactionMap
+  transactions: TransactionRecords
   loading: boolean
   error: string
 }
@@ -48,7 +47,7 @@ const transactionSlice = createSlice({
       const newTransactions = payload.reduce((acc, transaction) => {
         acc[transaction.id] = transaction
         return acc
-      }, {} as TransactionMap)
+      }, {} as TransactionRecords)
       state.transactions = { ...state.transactions, ...newTransactions }
     },
     createTransactionStart: startLoading,
@@ -65,7 +64,15 @@ const transactionSlice = createSlice({
     },
     deleteTransactionStart: startLoading,
     deleteTransactionFailure: loadingFailed,
-    deleteTransactionSuccess: (state, { payload }: PayloadAction<IDeleteResponse>) => {},
+    deleteTransactionSuccess: (state, { payload }: PayloadAction<IDeleteResponse>) => {
+      const filteredTransactions: TransactionRecords = {}
+      for (const transactionId in state.transactions) {
+        if (transactionId !== payload.id) {
+          filteredTransactions[transactionId] = state.transactions[transactionId]
+        }
+      }
+      state.transactions = filteredTransactions
+    },
     getTransactionsByLinkIdStart: startLoading,
     getTransactionsByLinkIdFailure: loadingFailed,
     getTransactionsByLinkIdSuccess: (state, { payload }: PayloadAction<ITransactionDetail[]>) => {
@@ -73,7 +80,7 @@ const transactionSlice = createSlice({
       const newTransactions = payload.reduce((acc, transaction) => {
         acc[transaction.id] = transaction
         return acc
-      }, {} as TransactionMap)
+      }, {} as TransactionRecords)
       state.transactions = { ...state.transactions, ...newTransactions }
     },
   },
@@ -146,15 +153,10 @@ export const createTransaction = (transaction: ICreateTransaction): AppThunk => 
   }
 }
 
-export const updateTransaction = (transaction: ITransactionDetail): AppThunk => async (
-  dispatch,
-) => {
+export const updateTransaction = (transaction: ITransaction): AppThunk => async (dispatch) => {
   try {
     dispatch(updateTransactionStart())
-    const response = await transactionApi.updateTransaction(
-      transaction.budgetId,
-      transactionFormatter.toTransaction(transaction),
-    )
+    const response = await transactionApi.updateTransaction(transaction.budgetId, transaction)
     dispatch(updateTransactionSuccess(response))
   } catch (err: any) {
     dispatch(updateTransactionFailure(err.toString()))

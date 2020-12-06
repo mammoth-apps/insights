@@ -6,7 +6,7 @@ import React, { useCallback, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { categoryApi } from '../../api/category.api'
 import type { RootState } from '../../app'
-import type { ITransactionGridRow } from '../../interfaces'
+import type { ITransactionGridView } from '../../interfaces'
 import { createCategoryFailure, createCategoryStart, createCategorySuccess } from './category-slice'
 
 const filter = createFilterOptions<ICategory>()
@@ -105,7 +105,7 @@ const CategoryCellEditor = ({ value, onValueChange }: any) => {
 }
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-let detailKey: keyof ITransactionGridRow
+let detailKey: keyof ITransactionGridView
 
 export const CategoryCellTypeProvider = () => {
   return (

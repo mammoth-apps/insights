@@ -1,1 +1,1 @@
-export * from './transaction-grid-row.interface';
+export * from './transaction-grid-view.interface'

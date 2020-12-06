@@ -1,4 +1,5 @@
 export * from './axiosInstance'
+export * from './date.util'
 export * from './formatters.utils'
 export * from './parser.util'
 export * from './string.utils'

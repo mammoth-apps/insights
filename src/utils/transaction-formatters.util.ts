@@ -3,7 +3,7 @@ import type {
   ITransaction,
   ITransactionDetail,
 } from '@mammoth-apps/api-interfaces'
-import type { ITransactionGridRow } from '../interfaces'
+import type { ITransactionGridView } from '../interfaces'
 import { dateFormatter } from './formatters.utils'
 import { parser } from './parser.util'
 
@@ -22,7 +22,7 @@ export const transactionFormatter = {
     }
     return parser.removeEmpty(response)
   },
-  toCreateTransaction(detail: ITransactionGridRow): ICreateTransaction {
+  toCreateTransaction(detail: ITransactionGridView): ICreateTransaction {
     return {
       budgetId: detail.budgetId,
       date: detail.date,
@@ -47,7 +47,7 @@ export const transactionFormatter = {
       outflow: detail.outflow === undefined ? undefined : -detail.outflow,
     }
   },
-  toGridView(transaction: ITransactionDetail): ITransactionGridRow {
+  toGridView(transaction: ITransactionDetail): ITransactionGridView {
     return {
       id: transaction.id,
       accountId: transaction.accountId,

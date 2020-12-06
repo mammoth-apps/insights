@@ -6,7 +6,7 @@ import React, { useCallback, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { payeeApi } from '../../api/payee.api'
 import type { RootState } from '../../app'
-import type { ITransactionGridRow } from '../../interfaces'
+import type { ITransactionGridView } from '../../interfaces'
 import { createPayeeFailure, createPayeeStart, createPayeeSuccess } from './payee-slice'
 
 const filter = createFilterOptions<IPayee>()
@@ -34,6 +34,7 @@ const PayeeCellEditor = ({ value, onValueChange }: any) => {
 
   const onChange = useCallback(
     (payee: IPayee | null) => {
+      console.log(payee)
       onValueChange(payee?.id)
       setSelectedPayee(payee)
     },
@@ -75,6 +76,7 @@ const PayeeCellEditor = ({ value, onValueChange }: any) => {
       options={payeeList}
       getOptionLabel={(option: IPayee) => option.name}
       onChange={(_, newValue) => {
+        console.log('here it goes', newValue)
         if (typeof newValue === 'string') {
           onAutoCompleteSelection(newValue)
         } else if (newValue && newValue.id === '') {
@@ -102,7 +104,7 @@ const PayeeCellEditor = ({ value, onValueChange }: any) => {
 }
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-let detailKey: keyof ITransactionGridRow
+let detailKey: keyof ITransactionGridView
 
 export const PayeeCellTypeProvider = () => {
   return (

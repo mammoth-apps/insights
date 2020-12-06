@@ -3,7 +3,7 @@ import { Input, MenuItem, Select } from '@material-ui/core'
 import React, { useState } from 'react'
 import { useSelector } from 'react-redux'
 import type { RootState } from '../../app'
-import type { ITransactionGridRow } from '../../interfaces'
+import type { ITransactionGridView } from '../../interfaces'
 
 type CellGridView = { value: string }
 
@@ -45,7 +45,7 @@ const AccountCellEditor = ({ value, onValueChange }: any) => {
 }
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-let detailKey: keyof ITransactionGridRow
+let detailKey: keyof ITransactionGridView
 
 export const AccountCellTypeProvider = () => {
   return (
