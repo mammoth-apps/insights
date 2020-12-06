@@ -3,6 +3,11 @@ import { AxiosInstance, default as Axios } from 'axios'
 class BudgetRequestApi {
   public axios: AxiosInstance
   private authToken: string | null = null
+
+  public get isApiReady(): boolean {
+    return !!this.authToken
+  }
+
   constructor() {
     this.axios = Axios.create({
       baseURL: import.meta.env.SNOWPACK_PUBLIC_BUDGET_API,
@@ -22,8 +27,11 @@ class BudgetRequestApi {
 
 const budgetRequestApi = new BudgetRequestApi()
 
-export const setAuthToken = (token: string) => {
+export const setAuthToken = (token: string): void => {
   budgetRequestApi.setAuthToken(token)
+}
+export const isApiReady = (): boolean => {
+  return budgetRequestApi.isApiReady
 }
 
 export const axiosInstance = budgetRequestApi.axios
