@@ -34,7 +34,6 @@ const PayeeCellEditor = ({ value, onValueChange }: any) => {
 
   const onChange = useCallback(
     (payee: IPayee | null) => {
-      console.log(payee)
       onValueChange(payee?.id)
       setSelectedPayee(payee)
     },
@@ -76,7 +75,6 @@ const PayeeCellEditor = ({ value, onValueChange }: any) => {
       options={payeeList}
       getOptionLabel={(option: IPayee) => option.name}
       onChange={(_, newValue) => {
-        console.log('here it goes', newValue)
         if (typeof newValue === 'string') {
           onAutoCompleteSelection(newValue)
         } else if (newValue && newValue.id === '') {

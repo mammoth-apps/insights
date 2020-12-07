@@ -17,50 +17,18 @@ import type { ITransactionDetail } from '@mammoth-apps/api-interfaces'
 import Paper from '@material-ui/core/Paper'
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import type { RootState } from '../../app'
-import { AccountCellTypeProvider } from '../../features/accounts/account-cell-type-provider'
-import { CategoryCellTypeProvider } from '../../features/category/category-cell-type-provider'
-import { PayeeCellTypeProvider } from '../../features/payee/payee-cell-type-provider'
-import {
-  createTransaction,
-  deleteTransaction,
-  updateTransaction,
-} from '../../features/transactions/transaction-slice'
-import { ITransactionGridView } from '../../interfaces'
-import { transactionFormatter } from '../../utils'
-import { CurrencyCellTypeProvider } from '../grid-providers/currency-cell-type-provider'
-import { DateCellTypeProvider } from '../grid-providers/date-cell-type-provider'
+import type { RootState } from '../../../app'
+import { CurrencyCellTypeProvider } from '../../../components/grid-providers/currency-cell-type-provider'
+import { DateCellTypeProvider } from '../../../components/grid-providers/date-cell-type-provider'
+import { ITransactionGridView } from '../../../interfaces'
+import { transactionFormatter } from '../../../utils'
+import { AccountCellTypeProvider } from '../../accounts/account-cell-type-provider'
+import { CategoryCellTypeProvider } from '../../category/category-cell-type-provider'
+import { PayeeCellTypeProvider } from '../../payee/payee-cell-type-provider'
+import { createTransaction, deleteTransaction, updateTransaction } from '../transaction-slice'
+import { EditCell } from './edit-cell'
 
-const getRowId = (row: ITransactionDetail): string => row.id
-
-const EditCell = ({ errors, requiredTransactionFields, ...props }: any) => {
-  const { children } = props
-  const anyProps: any = props
-  console.log(props)
-  const rowData = props.tableRow.row
-  const hasAllRequiredFields = requiredTransactionFields.every(
-    (requiredField: string) => !!rowData[requiredField],
-  )
-
-  return (
-    <TableEditColumn.Cell {...anyProps}>
-      {React.Children.map(children, (child) => {
-        let disabled = errors[props.tableRow.rowId]
-        // console.log(disabled, rowData)
-        // * A little weird here, but it's a step and it makes the required things be filled in.
-        // * Will eventually format the cell to make it show as red or something
-        if (child?.props.id === 'commit' && child?.props.text === 'Save') {
-          disabled = !hasAllRequiredFields
-        }
-        return child?.props.id === 'commit'
-          ? React.cloneElement(child, {
-              disabled,
-            })
-          : child
-      })}
-    </TableEditColumn.Cell>
-  )
-}
+const getRowId = (row: ITransactionGridView): string => row.id
 
 export interface IDataColumn<T> {
   name: keyof T
@@ -125,7 +93,6 @@ export const TransactionDataGrid: React.FC<IDataTable<any>> = ({
         (transactionId) => {
           dispatch(
             updateTransaction({
-              id: transactionId,
               ...transactions[transactionId],
               ...changed[transactionId],
             }),
@@ -145,31 +112,19 @@ export const TransactionDataGrid: React.FC<IDataTable<any>> = ({
     rows: Record<string, ITransactionGridView>,
     columns: IDataColumn<ITransactionGridView>[],
   ) => {
-    console.log(rows, columns)
-    const response = Object.entries(rows).reduce(
+    return Object.entries(rows).reduce(
       (acc, [transactionId, transaction]) => ({
         ...acc,
         [transactionId]: Object.keys(transaction).some((valueKey) => {
           const column = columns.find((column) => column.name === valueKey)
           if (column) {
-            console.log(valueKey, !!(transaction as any)[valueKey])
             return column.isRequired && !!(transaction as any)[valueKey] === false
           }
           return false
         }),
-        // [transactionId]: columns.some((column) => {
-        //   if (!column.isRequired) {
-        //     console.log('not required', column)
-        //     return true
-        //   }
-        //   console.log('mass', row, column.name, !!row[column.name])
-        //   console.log('return', column.isRequired && (!row[column.name] || row[column.name] === ''))
-        //   return column.isRequired && (!row[column.name] || row[column.name] === '')
-        // }),
       }),
       {},
     )
-    return response
   }
 
   const onEdited = (edited: Record<string, ITransactionGridView>) => {

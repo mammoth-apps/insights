@@ -2,14 +2,14 @@ import type { ITransactionDetail } from '@mammoth-apps/api-interfaces'
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import type { RootState } from '../../app'
+import type { ITransactionGridView } from '../../interfaces'
+import { useRouter } from '../../router/useRouter'
+import { transactionFormatter } from '../../utils'
 import {
   IColumnExtension,
   IDataColumn,
   TransactionDataGrid,
-} from '../../components/grid/transaction-data-grid'
-import type { ITransactionGridView } from '../../interfaces'
-import { useRouter } from '../../router/useRouter'
-import { transactionFormatter } from '../../utils'
+} from '../transactions/grid/transaction-data-grid'
 import { getTransactionsByLinkId } from '../transactions/transaction-slice'
 
 export const AccountTransactionsPage = () => {

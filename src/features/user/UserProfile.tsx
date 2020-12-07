@@ -4,7 +4,6 @@ import React, { useState } from 'react'
 
 export const UserProfile = () => {
   const { user } = useAuth0()
-  console.log(user)
   const [isDropdownOpen, setIsDropdownOpen] = useState(false)
   const onIconClick = () => {
     setIsDropdownOpen(!isDropdownOpen)

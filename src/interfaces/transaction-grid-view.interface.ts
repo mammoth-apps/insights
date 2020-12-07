@@ -1,5 +1,5 @@
 export interface ITransactionGridView {
-  id?: string
+  id: string
   budgetId: string
   date: string
   accountId: string
